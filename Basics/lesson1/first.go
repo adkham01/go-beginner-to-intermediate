@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"math/cmplx"
 )
 
@@ -35,4 +36,9 @@ func main() {
 	var db bool
 	var s string
 	fmt.Printf("%v, %v, %v, %q\n", i, f, db, s)
+
+	var x, y int = 3, 4
+	var df float64 = math.Sqrt(float64(x*x + y*y))
+	var dz uint = uint(df)
+	fmt.Println(x, y, dz)
 }
