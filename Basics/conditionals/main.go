@@ -6,6 +6,10 @@ import (
 	"time"
 )
 
+func init() {
+	fmt.Println("This is beginning of the initalization")
+}
+
 func main() {
 	// Sequence
 	fmt.Println("This is the first statement to run")
