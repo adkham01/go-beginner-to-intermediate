@@ -10,12 +10,19 @@ func init() {
 }
 
 func main() {
+	fmt.Println("The first for loop")
+
+	for i := range 100 {
+		fmt.Println(i)
+	}
+
+	fmt.Println("\nThe second for loop")
 
 	for i := 0; i <= 100; i++ {
 		x := rand.Intn(10)
 		y := rand.Intn(10)
 
-		fmt.Printf("iteration %v\tvale of x: %v value of y: %v\n", i, x, y)
+		fmt.Printf("vale of x: %v value of y: %v\n", x, y)
 
 		switch {
 		case x < 4 && y < 4:
