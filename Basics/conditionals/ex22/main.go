@@ -9,6 +9,7 @@ func main() {
 		for j := range 5 {
 			fmt.Printf("Outer loop %v inner loop %v\n", i, j)
 		}
+		fmt.Println("---------------------------")
 	}
 
 }
