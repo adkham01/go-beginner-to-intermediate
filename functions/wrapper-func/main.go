@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"strconv"
 )
 
@@ -19,14 +20,21 @@ func (c count) String() string {
 	return fmt.Sprint("The number is ", strconv.Itoa(int(c)))
 }
 
+func logInfo(s fmt.Stringer) {
+	log.Println("Log from Wrapper", s.String())
+}
+
 func main() {
 	b := book{
 		title: "Harry Potter",
 	}
 	var c count = 42
 
-	fmt.Println(b)
-	fmt.Println(c)
+	log.Println(b)
+	log.Println(c)
+	println("--------------------------")
+	logInfo(b)
+	logInfo(c)
 }
 
 // func (r receiver) identifier(p params) (r returns){...}
