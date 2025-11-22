@@ -1,8 +1,8 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
-	"math"
 )
 
 type User struct {
@@ -24,6 +24,15 @@ func main() {
 	fmt.Printf("%T\n", bs)
 	fmt.Printf("%T\n", s)
 
-	fmt.Println("JSON:", s)
-	fmt.Println(math.Sqrt(17))
+	var people []User
+
+	err := json.Unmarshal(bs, &people)
+	if err != nil {
+		fmt.Println("Error unmarshaling JSON:", err)
+	}
+
+	fmt.Println("All data")
+	for _, v := range people {
+		fmt.Printf("Person: %v,\n", v)
+	}
 }
