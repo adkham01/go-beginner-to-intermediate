@@ -10,18 +10,24 @@ func (d dog) walk() {
 	fmt.Println("My name is", d.first, "and I am walking")
 }
 
-func (d *dog) run() {
-	d.first = "Rover"
+func (d dog) run() {
 	fmt.Println("My name is", d.first, "and I am running")
+}
+
+type youngin interface {
+	walk()
+	run()
+}
+
+func younginFunc(y youngin) {
+	y.walk()
+	y.run()
 }
 
 func main() {
 	d1 := dog{"Henry"}
-	d1.walk()
-	d1.run()
+	younginFunc(d1)
 
-	d2 := &dog{"Paget"}
-	d2.walk()
-	d2.run()
-
+	d2 := dog{"Paget"}
+	younginFunc(d2)
 }
