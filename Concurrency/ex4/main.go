@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"runtime"
 	"sync"
 )
 
@@ -17,6 +18,7 @@ func main() {
 		go func() {
 			mu.Lock()
 			v := counter
+			runtime.Gosched()
 			v++
 			counter = v
 			wg.Done()
