@@ -1,0 +1,5 @@
+mode: set
+hands-on-1/dog/dog.go:4.23,6.2 1 1
+hands-on-1/dog/dog.go:9.26,11.14 2 1
+hands-on-1/dog/dog.go:11.14,13.3 1 1
+hands-on-1/dog/dog.go:14.2,14.14 1 1
