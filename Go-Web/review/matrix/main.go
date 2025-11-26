@@ -21,4 +21,24 @@ func main() {
 	fruits = append(fruits, "limon", "orange", "grape")
 	fmt.Println("Updated Fruits:", fruits)
 
+	for i, v := range fruits {
+		fmt.Printf("Fruit %d: %s\n", i+1, v)
+	}
+
+	capitalCities := map[string]string{
+		"France":      "Paris",
+		"Italy":       "Rome",
+		"Germany":     "Berlin",
+		"Portugal":    "Lisbon",
+		"Netherlands": "Amsterdam",
+	}
+
+	capital, exists := capitalCities["Italy"]
+	if exists {
+		fmt.Println("The capital of Italy is", capital)
+	} else {
+		fmt.Println("Capital not found")
+	}
+
+	delete(capitalCities, "Germany")
 }
