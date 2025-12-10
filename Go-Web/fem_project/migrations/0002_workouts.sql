@@ -1,12 +1,12 @@
 -- +goose Up
 -- +goose StatementBegin
-CREATE TABLE IF NOT EXISTS workouts(
+CREATE TABLE IF NOT EXISTS workouts (
     id BIGSERIAL PRIMARY KEY,
     -- user_id
-    title VARCHAR(50) NOT NULL,
+    title VARCHAR(255) NOT NULL,
     description TEXT,
     duration_minutes INTEGER NOT NULL,
-    callories_burned INTEGER,
+    calories_burned INTEGER,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 )

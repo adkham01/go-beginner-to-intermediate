@@ -1,21 +1,26 @@
 package api
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"strconv"
 
+	"github.com/adkham01/fem_project/internal/store"
 	"github.com/go-chi/chi/v5"
 )
 
 type WorkoutHandler struct {
+	workoutStore store.WorkoutStore
 }
 
-func NewWorkoutHandler() *WorkoutHandler {
-	return &WorkoutHandler{}
+func NewWorkoutHandler(workoutStore store.WorkoutStore) *WorkoutHandler {
+	return &WorkoutHandler{
+		workoutStore: workoutStore,
+	}
 }
 
-func (wh *WorkoutHandler) HandleWorkoutById(w http.ResponseWriter, r *http.Request) {
+func (wh *WorkoutHandler) HandleGetWorkoutById(w http.ResponseWriter, r *http.Request) {
 	paramsWorkoutId := chi.URLParam(r, "workoutId")
 	if paramsWorkoutId == "" {
 		http.NotFound(w, r)
@@ -27,9 +32,24 @@ func (wh *WorkoutHandler) HandleWorkoutById(w http.ResponseWriter, r *http.Reque
 		http.NotFound(w, r)
 	}
 
-	fmt.Printf(" this is workout id:%d\n", workoutId)
+	fmt.Printf("this is workout id:%d\n", workoutId)
 }
 
 func (wh *WorkoutHandler) HandleCreateWorkout(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Created a new workout\n")
+	var workout store.Workout
+	err := json.NewDecoder(r.Body).Decode(&workout)
+	if err != nil {
+		fmt.Printf("err:%v\n", err)
+		http.Error(w, "Failed to create workout", http.StatusInternalServerError)
+		return
+	}
+
+	createdWorkout, err := wh.workoutStore.CreateWorkout(&workout)
+	if err != nil {
+		fmt.Printf("err:%v\n", err)
+		http.Error(w, "Failed to create workout", http.StatusInternalServerError)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(createdWorkout)
 }
