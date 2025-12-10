@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
-    <file url="file://$PROJECT_DIR$/Go-Web/fem_project/migrations/02_workouts.sql" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/Go-Web/fem_project/migrations/03_workout_entries.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/Go-Web/fem_project/migrations/0001_users.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/Go-Web/fem_project/migrations/0002_workouts.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/Go-Web/fem_project/migrations/0003_workout_entries.sql" dialect="GenericSQL" />
   </component>
 </project>

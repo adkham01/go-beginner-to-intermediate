@@ -37,6 +37,7 @@ type WorkoutStore interface {
 	CreateWorkout(*Workout) (*Workout, error)
 	GetWorkoutByID(id int64) (*Workout, error)
 	UpdateWorkout(*Workout) error
+	DeleteWorkoutByID(id int64) error
 }
 
 func (pg *PostgresWorkoutStore) CreateWorkout(workout *Workout) (*Workout, error) {
@@ -190,6 +191,9 @@ func (pg *PostgresWorkoutStore) UpdateWorkout(workout *Workout) error {
 		workout.CaloriesBurned,
 		workout.ID,
 	)
+	if err != nil {
+		return err
+	}
 
 	rowsAffected, err := result.RowsAffected()
 
@@ -197,10 +201,14 @@ func (pg *PostgresWorkoutStore) UpdateWorkout(workout *Workout) error {
 		return sql.ErrNoRows
 	}
 
-	_, err = tx.Exec(query, `DELETE FROM workout_entries WHERE workout_id = $1`, workout.ID)
+	deleteQuery := `DELETE FROM workout_entries WHERE workout_id = $1`
+	_, err = tx.Exec(deleteQuery, workout.ID)
+	if err != nil {
+		return err
+	}
 
 	for _, entry := range workout.Entries {
-		query :=
+		insertQuery :=
 			`INSERT INTO workout_entries(
                             workout_id,
                             exercise_name,
@@ -209,10 +217,10 @@ func (pg *PostgresWorkoutStore) UpdateWorkout(workout *Workout) error {
                             duration_seconds,
                             weight,
                             notes,
-                            order_index
+                            order_index)
                             VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-                            )`
-		_, err = tx.Exec(query,
+                            `
+		_, err = tx.Exec(insertQuery,
 			workout.ID,
 			entry.ExerciseName,
 			entry.Sets,
@@ -227,4 +235,23 @@ func (pg *PostgresWorkoutStore) UpdateWorkout(workout *Workout) error {
 		}
 	}
 	return tx.Commit()
+}
+
+func (pg *PostgresWorkoutStore) DeleteWorkoutByID(id int64) error {
+	query := `DELETE FROM workouts WHERE id = $1`
+
+	result, err := pg.db.Exec(query, id)
+	if err != nil {
+		return err
+	}
+
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		return nil
+	}
+
+	if rowsAffected == 0 {
+		return sql.ErrNoRows
+	}
+	return nil
 }

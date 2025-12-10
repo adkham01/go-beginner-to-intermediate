@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourcePerFileMappings">
-    <file url="file://$PROJECT_DIR$/Go-Web/fem_project/migrations/01_users.sql" value="51e0eab3-1be2-41e6-b195-b0bf51ab7fd8" />
-    <file url="file://$PROJECT_DIR$/Go-Web/fem_project/migrations/02_workouts.sql" value="51e0eab3-1be2-41e6-b195-b0bf51ab7fd8" />
-    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/51e0eab3-1be2-41e6-b195-b0bf51ab7fd8/console.sql" value="51e0eab3-1be2-41e6-b195-b0bf51ab7fd8" />
+    <file url="file://$PROJECT_DIR$/Go-Web/fem_project/migrations/0001_users.sql" value="51e0eab3-1be2-41e6-b195-b0bf51ab7fd8" />
+    <file url="file://$PROJECT_DIR$/Go-Web/fem_project/migrations/0002_workouts.sql" value="51e0eab3-1be2-41e6-b195-b0bf51ab7fd8" />
   </component>
 </project>
