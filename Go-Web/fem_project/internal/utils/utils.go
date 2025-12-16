@@ -11,16 +11,16 @@ import (
 
 type Envelope map[string]interface{}
 
-func WriteJson(w http.ResponseWriter, status int, data Envelope) error {
+func WriteJson(w http.ResponseWriter, status int, data Envelope) {
 	js, err := json.MarshalIndent(data, "", "  ")
 	if err != nil {
-		return err
+		return
 	}
 	js = append(js, '\n')
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(status)
 	w.Write(js)
-	return nil
+	return
 }
 
 func ReadIdParam(r *http.Request) (id int64, err error) {

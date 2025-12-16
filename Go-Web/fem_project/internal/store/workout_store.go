@@ -22,7 +22,7 @@ type WorkoutEntry struct {
 	DurationSeconds *int     `json:"duration_seconds"`
 	Weight          *float64 `json:"weight"`
 	Notes           string   `json:"notes"`
-	OrderIndex      *int     `json:"order_index"`
+	OrderIndex      int      `json:"order_index"`
 }
 
 type PostgresWorkoutStore struct {
