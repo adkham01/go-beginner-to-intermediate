@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"github.com/adkham01/fem_project/internal/app"
+	"github.com/adkham01/stay_fit/internal/app"
 	"github.com/go-chi/chi/v5"
 )
 

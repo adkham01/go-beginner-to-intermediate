@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"regexp"
 
-	"github.com/adkham01/fem_project/internal/store"
-	"github.com/adkham01/fem_project/internal/utils"
+	"github.com/adkham01/stay_fit/internal/store"
+	"github.com/adkham01/stay_fit/internal/utils"
 )
 
 type registerUserRequest struct {

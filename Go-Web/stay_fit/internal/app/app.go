@@ -7,10 +7,10 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/adkham01/fem_project/internal/api"
-	"github.com/adkham01/fem_project/internal/middleware"
-	"github.com/adkham01/fem_project/internal/store"
-	"github.com/adkham01/fem_project/migrations"
+	"github.com/adkham01/stay_fit/internal/api"
+	"github.com/adkham01/stay_fit/internal/middleware"
+	"github.com/adkham01/stay_fit/internal/store"
+	"github.com/adkham01/stay_fit/migrations"
 )
 
 type Application struct {

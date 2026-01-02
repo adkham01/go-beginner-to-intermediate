@@ -7,9 +7,9 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/adkham01/fem_project/internal/middleware"
-	"github.com/adkham01/fem_project/internal/store"
-	"github.com/adkham01/fem_project/internal/utils"
+	"github.com/adkham01/stay_fit/internal/middleware"
+	"github.com/adkham01/stay_fit/internal/store"
+	"github.com/adkham01/stay_fit/internal/utils"
 )
 
 type WorkoutHandler struct {

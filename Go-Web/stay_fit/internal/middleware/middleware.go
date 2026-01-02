@@ -6,9 +6,9 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/adkham01/fem_project/internal/store"
-	"github.com/adkham01/fem_project/internal/tokens"
-	"github.com/adkham01/fem_project/internal/utils"
+	"github.com/adkham01/stay_fit/internal/store"
+	"github.com/adkham01/stay_fit/internal/tokens"
+	"github.com/adkham01/stay_fit/internal/utils"
 )
 
 type UserMiddleware struct {

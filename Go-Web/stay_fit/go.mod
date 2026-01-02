@@ -1,4 +1,4 @@
-module github.com/adkham01/fem_project
+module github.com/adkham01/stay_fit
 
 go 1.25.3
 
