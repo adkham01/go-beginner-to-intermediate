@@ -1,6 +1,6 @@
 module gocdk
 
-go 1.23.0
+go 1.24.0
 
 require (
 	github.com/aws/aws-cdk-go/awscdk/v2 v2.232.1
@@ -20,6 +20,6 @@ require (
 	golang.org/x/lint v0.0.0-20210508222113-6edffad5e616 // indirect
 	golang.org/x/mod v0.27.0 // indirect
 	golang.org/x/sync v0.16.0 // indirect
-	golang.org/x/sys v0.35.0 // indirect
+	golang.org/x/sys v0.39.0 // indirect
 	golang.org/x/tools v0.36.0 // indirect
 )

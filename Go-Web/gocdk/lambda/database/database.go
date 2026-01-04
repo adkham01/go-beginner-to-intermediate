@@ -1,12 +1,27 @@
 package database
 
 import (
+	"fmt"
+	"lambda-func/types"
+
+	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
+	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
 )
 
+const (
+	TableName = "userTable"
+)
+
+type UserStore interface {
+	DoesUserExist(username string) (bool, error)
+	InsertUser(user types.User) error
+	GetUser(username string) (types.User, error)
+}
+
 type DynamoDBClient struct {
-	datastore *dynamodb.DynamoDB
+	databaseStore *dynamodb.DynamoDB
 }
 
 func NewDynamoDBClient() DynamoDBClient {
@@ -14,6 +29,73 @@ func NewDynamoDBClient() DynamoDBClient {
 	db := dynamodb.New(dbSession)
 
 	return DynamoDBClient{
-		datastore: db,
+		databaseStore: db,
 	}
+}
+
+func (d DynamoDBClient) DoesUserExist(username string) (bool, error) {
+	result, err := d.databaseStore.GetItem(&dynamodb.GetItemInput{
+		TableName: aws.String(TableName),
+		Key: map[string]*dynamodb.AttributeValue{
+			"username": {
+				S: aws.String(username),
+			},
+		},
+	})
+
+	if err != nil {
+		return true, err
+	}
+
+	if result.Item == nil {
+		return false, nil
+	}
+
+	return true, nil
+}
+
+func (d DynamoDBClient) InsertUser(user types.User) error {
+	// assemble the item
+	item := &dynamodb.PutItemInput{
+		TableName: aws.String(TableName),
+		Item: map[string]*dynamodb.AttributeValue{
+			"username": {
+				S: aws.String(user.Username),
+			},
+			"password": {
+				S: aws.String(user.PasswordHash),
+			},
+		},
+	}
+
+	_, err := d.databaseStore.PutItem(item)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (d DynamoDBClient) GetUser(username string) (types.User, error) {
+	var user types.User
+
+	result, err := d.databaseStore.GetItem(&dynamodb.GetItemInput{
+		TableName: aws.String(TableName),
+		Key: map[string]*dynamodb.AttributeValue{
+			"username": {
+				S: aws.String(username),
+			},
+		},
+	})
+	if err != nil {
+		return user, err
+	}
+	if result.Item == nil {
+		return user, fmt.Errorf("user not found %w", err)
+	}
+
+	err = dynamodbattribute.UnmarshalMap(result.Item, &user)
+	if err != nil {
+		return user, err
+	}
+	return user, nil
 }
