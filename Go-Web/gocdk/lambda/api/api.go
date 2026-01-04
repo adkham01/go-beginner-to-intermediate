@@ -114,8 +114,11 @@ func (api Handler) LoginUser(request events.APIGatewayProxyRequest) (events.APIG
 			fmt.Errorf("invalid username or password")
 	}
 
+	accessToken := types.CreateToken(user)
+	successMsg := fmt.Sprintf(`{"access_token": "%s"}`, accessToken)
+
 	return events.APIGatewayProxyResponse{
-		Body:       "User successfully logged in",
+		Body:       successMsg,
 		StatusCode: http.StatusOK,
 	}, nil
 
