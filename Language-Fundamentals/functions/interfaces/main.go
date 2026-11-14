@@ -2,57 +2,66 @@ package main
 
 import (
 	"fmt"
-	"hash/fnv"
+	"math"
 )
 
-type person struct {
-	firstName string
+type Geometry interface {
+	area() float64
+	perim() float64
 }
 
-type secretAgent struct {
-	person person
-	ltk    bool
+type Rectangle struct {
+	width  float64
+	height float64
 }
 
-type human interface {
-	speak()
+type Circle struct {
+	radius float64
 }
 
-func (p person) speak() {
-	fmt.Println("I am", p.firstName)
+func (r Rectangle) area() float64 {
+	return r.width * r.height
 }
 
-func (sa secretAgent) speak() {
-	fmt.Println("I am the secret agent my id is", hashCode(sa.person.firstName),
-		"has lisence to kill", sa.ltk)
+func (c Circle) area() float64 {
+	return math.Pi * math.Pow(c.radius, 2)
 }
 
-func saySomething(h human) {
-	h.speak()
+func (r Rectangle) perim() float64 {
+	return 2*r.width + 2*r.height
+}
+
+func (c Circle) perim() float64 {
+	return 2 * math.Pi * c.radius
+}
+
+func (c Circle) diameter() float64 {
+	return 2 * c.radius
 }
 
 func main() {
-	sa := secretAgent{
-		person: person{
-			firstName: "James",
-		},
-		ltk: true,
-	}
+	r := Rectangle{width: 3, height: 4}
+	c := Circle{radius: 5}
 
-	p2 := person{
-		firstName: "Janny",
-	}
-	// sa.speak()
-	// p2.speak(27)
+	measure(r)
+	measure(c)
 
-	saySomething(p2)
-	saySomething(sa)
-
+	println("Circle diameter:", c.diameter())
+	myPrinter("Hello", 42, 3.14, true)
+	value(r)
 }
 
-// func (r receiver) identifier(p params) (r returns){...}
-func hashCode(s string) int {
-	h := fnv.New32a()
-	h.Write([]byte(s))
-	return int(h.Sum32())
+func measure(g Geometry) {
+	println(g.area())
+	println(g.perim())
+}
+
+func myPrinter(i ...interface{}) {
+	for _, v := range i {
+		fmt.Println(v)
+	}
+}
+
+func value(i interface{}) {
+	fmt.Println(i)
 }
