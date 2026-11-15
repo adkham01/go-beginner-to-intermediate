@@ -15,7 +15,7 @@ func main() {
 func incrementor() func() int {
 	x := 0
 	return func() int {
-		x += 5
+		x += 10
 		return x
 	}
 }
